@@ -1,0 +1,37 @@
+{
+  "name": "livestyle-atom",
+  "version": "0.0.1",
+  "description": "Atom plugin for Emmet LiveStyle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "livestyle",
+    "css",
+    "scss",
+    "less",
+    "live",
+    "edit"
+  ],
+  "author": "Sergey Chikuyonok <serge.che@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "crc": "^3.4.0",
+    "lru-cache": "^4.0.0",
+    "ws": "^1.0.0",
+    "xtend": "^4.0.1"
+  },
+  "config": {
+    "websocketUrl": "ws://127.0.0.1:54000/livestyle"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/livestyle/atom.git"
+  },
+  "bugs": {
+    "url": "https://github.com/livestyle/atom/issues"
+  },
+  "homepage": "https://github.com/livestyle/atom"
+}
