@@ -35,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/livestyle/atom/issues"
   },
-  "homepage": "http://livestyle.io"
+  "homepage": "http://livestyle.io",
+  "directories": {
+    "test": "test"
+  }
 }
