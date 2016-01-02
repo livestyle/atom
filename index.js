@@ -4,12 +4,14 @@ const connect = require('./lib/client');
 const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
 const readFile = require('./lib/read-file');
-const debug = require('./lib/debug')('LiveStyle');
+const globalDebug = require('./lib/debug');
+const debug = globalDebug('LiveStyle');
 const pkg = require('./package.json');
 
 const EDITOR_ID = 'atom';
 
 module.exports.activate = function() {
+	setupLogger();
 	connect(pkg.config.websocketUrl, (err, client) => {
 		if (err) {
 			return console.error('Unable to setup LiveStyle connection:', err);
@@ -29,9 +31,9 @@ module.exports.activate = function() {
 		.on('incoming-updates', data => {
 			let editor = ed.editorForUri(data.uri);
 			if (editor) {
-				client.send('apply-patch', ed.payload(editor, {
+				sendEditorPayload(client, editor, 'apply-patch', {
 					patches: data.patches
-				}));
+				});
 			}
 		})
 		.on('patch', data => {
@@ -97,9 +99,19 @@ module.exports.activate = function() {
 	});
 };
 
+module.exports.config = {
+	debugMode: {
+		title: 'Debug Mode',
+		description: 'Makes excessive logging into DevTools console, helps in finding bugs in plugin',
+		type: 'boolean',
+		default: true
+	}
+};
+
 module.exports.deactivate = function() {
 	// TODO close server
-	console.log('deactivate');
+	debug('deactivate');
+	globalDebug.disable();
 };
 
 /**
@@ -156,9 +168,17 @@ function updateContent(client, editor, payload) {
 function sendUnsavedChanges(client, editor) {
 	if (editor.isModified()) {
 		var previous = editor.getBuffer().cachedDiskContents || '';
-		debug('send unsaved changes for', ed.fileUri(editor));
-		client.send('calculate-diff', ed.payload(editor, {previous}));
+		debug('send unsaved changes for', ed.fileUri(editor), {previous});
+		sendEditorPayload(client, editor, 'calculate-diff', {previous});
 	}
+}
+
+function setupLogger() {
+	let key = `${pkg.name}.debugMode`;
+	let toggle = val => val ? globalDebug.enable() : globalDebug.disable();
+
+	toggle(atom.config.get(key));
+	atom.config.onDidChange(key, evt => toggle(evt.newValue));
 }
 
 ////////////////////////////////////////
@@ -180,8 +200,16 @@ function clientId(client) {
 function initialContent(client, editor) {
 	let syntax = ed.syntax(editor);
 	if (syntax) {
-		client.send('initial-content', ed.payload(editor));
+		sendEditorPayload(client, editor, 'initial-content');
 	}
+}
+
+function sendEditorPayload(client, editor, message, data) {
+	ed.payload(editor, data)
+	.then(payload => {
+		debug('send', message, payload);
+		client.send(message, payload);
+	});
 }
 
 function refreshFiles(client) {
