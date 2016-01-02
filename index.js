@@ -3,6 +3,8 @@
 const connect = require('./lib/client');
 const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
+const readFile = require('./lib/read-file');
+const debug = require('./lib/debug')('LiveStyle');
 const pkg = require('./package.json');
 
 const EDITOR_ID = 'atom';
@@ -28,7 +30,7 @@ module.exports.activate = function() {
 			let editor = ed.editorForUri(data.uri);
 			if (editor) {
 				client.send('apply-patch', ed.payload(editor, {
-					'patches': data.patches
+					patches: data.patches
 				}));
 			}
 		})
@@ -39,7 +41,18 @@ module.exports.activate = function() {
 			}
 		})
 		.on('request-files', data => {
-			// TODO implement preprocessor dependency fetcher
+			let files = data.files || [];
+			debug('requested deps', files);
+			Promise.all(files.map(f => readFile(f.uri)))
+			.catch(err => {
+				console.error('Error fetching preprocessor dependencies:', err);
+				return [];
+			})
+			.then(files => {
+				files = files.filter(f => f && f.content !== null);
+				debug('respond with deps', files);
+				client.send('files', {token: data.token, files});
+			});
 		})
 		.on('request-unsaved-changes', data => {
 			let files = data.files || [];
@@ -189,9 +202,4 @@ function scheduleRefreshFiles(client) {
 
 function unique(value, i, array) {
 	return array.indexOf(value) === i;
-}
-
-function debug() {
-	let args = Array.prototype.slice.call(arguments, 0);
-	console.log.apply(console, ['%cLiveStyle', 'font-weight:bold;color:green'].concat(args));
 }
