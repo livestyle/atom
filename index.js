@@ -27,7 +27,12 @@ module.exports.activate = function() {
 		})
 		.on('client-connect', () => editorId(client))
 		.on('identify-client', () => clientId(client))
-		.on('patcher-connect', () => initialContent(client, atom.workspace.getActiveTextEditor()))
+		.on('patcher-connect', () => {
+			let editor = atom.workspace.getActiveTextEditor();
+			if (editor) {
+				initialContent(client, editor);
+			}
+		})
 		.on('incoming-updates', data => {
 			let editor = ed.editorForUri(data.uri);
 			if (editor) {
