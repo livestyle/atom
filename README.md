@@ -21,7 +21,7 @@ This plugin doesn’t require any special setup: simply start Atom and Google Ch
 
 When creating a new, unsaved files, make sure you set document syntax to either `CSS`, `LESS` or `SCSS`, otherwise this document won’t appear in LiveStyle popup in Chrome.
 
-## Setting global dependencies for properocessors
+## Setting global dependencies for preprocessors
 
 As described in [Working with preprocessors](http://livestyle.io/docs/preprocessors/) section of LiveStyle docs, it is possible to provide global dependencies that will be used for parsing preprocessor files.
 
