@@ -78,18 +78,35 @@ module.exports.activate = function() {
 		let refresh = () => scheduleRefreshFiles(client);
 		atom.workspace.observeTextEditors(editor => {
 			refresh();
-			let justLoaded = true;
+			debug('add callbacks to', editor.getPath());
+
+			// `editor.onDidChange()` might be invoked multiple times during
+			// a single change. Instead of sending diff on each `didChange` and
+			// generating unnecessary CPU load, postpone a single 'diff' request
+			// on next event loop cycle
+			// NB `editor.onDidStopChanging()` event is too slow for real-time
+			// editing
+			let diffScheduled = false;
+			let scheduleDiff = () => {
+				if (!diffScheduled) {
+					process.nextTick(() => {
+						debug('diff', editor.getPath());
+						diffScheduled = false;
+						diff(editor);
+					});
+					diffScheduled = true;
+				}
+			}
+
+			if (ed.syntax(editor)) {
+				initialContent(client, editor);
+			}
+
 			let callbacks = [
 				editor.onDidChange(() => {
-					if (ed.syntax(editor)) {
-						if (justLoaded) {
-							debug('set initial content for new editor');
-							initialContent(client, editor);
-							justLoaded = false;
-						} else if (!ed.isLocked(editor)) {
-							debug('editor did change');
-							diff(editor);
-						}
+					if (ed.syntax(editor) && !ed.isLocked(editor)) {
+						debug('editor did change');
+						scheduleDiff();
 					}
 				}),
 				editor.onDidSave(refresh),
@@ -121,7 +138,7 @@ module.exports.deactivate = function() {
 
 /**
  * Updates content of given editor with patched content from LiveStyle
- * @param  {TextEditor} editor 
+ * @param  {TextEditor} editor
  * @param  {Object} payload
  */
 function updateContent(client, editor, payload) {
@@ -130,12 +147,12 @@ function updateContent(client, editor, payload) {
 	}
 
 	ed.lock(editor);
-	// unlock after some timeout to ensure that `onDidChange` event didn't 
+	// unlock after some timeout to ensure that `onDidChange` event didn't
 	// triggered 'calculate-diff' event
 	setTimeout(() => ed.unlock(editor), 10);
 
 	if (payload.ranges.length && payload.hash === ed.hash(editor)) {
-		// integrity check: if editor content didn't changed since last patch 
+		// integrity check: if editor content didn't changed since last patch
 		// request (e.g. content hashes are match), apply incremental updates
 
 		let buf = editor.getBuffer();
