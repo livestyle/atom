@@ -118,6 +118,14 @@ module.exports.activate = function() {
 				refresh();
 			});
 		});
+
+		atom.workspace.onDidChangeActivePaneItem(item => {
+			if (isEditor(item) && ed.syntax(item)) {
+				// when uses focuses on supported editor, force update
+				// its initial content
+				initialContent(client, item);
+			}
+		});
 	});
 };
 
@@ -238,6 +246,10 @@ function refreshFiles(client) {
 	let files = ed.all().map(editor => ed.fileUri(editor)).filter(unique);
 	debug('send file list', files);
 	client.send('editor-files',  {id: EDITOR_ID, files});
+}
+
+function isEditor(obj) {
+	return obj && 'getPath' in obj && 'getRootScopeDescriptor' in obj;
 }
 
 var _refreshFilesTimer = null;
