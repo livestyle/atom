@@ -1,6 +1,6 @@
 {
   "name": "livestyle-atom",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Atom plugin for Emmet LiveStyle",
   "main": "index.js",
   "scripts": {
