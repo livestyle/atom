@@ -5,6 +5,7 @@ const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
 const readFile = require('./lib/read-file');
 const globalDebug = require('./lib/debug');
+const analyzer = require('./lib/analyzer');
 const debug = globalDebug('LiveStyle');
 const pkg = require('./package.json');
 
@@ -12,6 +13,8 @@ const EDITOR_ID = 'atom';
 
 module.exports.activate = function() {
 	setupLogger();
+	setupAnalyzer();
+
 	connect(pkg.config.websocketUrl, (err, client) => {
 		if (err) {
 			return console.error('Unable to setup LiveStyle connection:', err);
@@ -209,6 +212,10 @@ function setupLogger() {
 
 	toggle(atom.config.get(key));
 	atom.config.onDidChange(key, evt => toggle(evt.newValue));
+}
+
+function setupAnalyzer() {
+	atom.workspace.observeTextEditors(editor => analyzer(editor.getBuffer()));
 }
 
 ////////////////////////////////////////
