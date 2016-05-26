@@ -6,6 +6,7 @@ const diffFactory = require('./lib/diff');
 const readFile = require('./lib/read-file');
 const globalDebug = require('./lib/debug');
 const analyzer = require('./lib/analyzer');
+const autocompleteProvider = require('./lib/analyzer/autocomplete');
 const debug = globalDebug('LiveStyle');
 const pkg = require('./package.json');
 
@@ -146,6 +147,8 @@ module.exports.deactivate = function() {
 	debug('deactivate');
 	globalDebug.disable();
 };
+
+module.exports.getProvider = () => autocompleteProvider;
 
 /**
  * Updates content of given editor with patched content from LiveStyle

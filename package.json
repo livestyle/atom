@@ -34,6 +34,13 @@
     "type": "git",
     "url": "https://github.com/livestyle/atom.git"
   },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "getProvider"
+      }
+    }
+  },
   "bugs": {
     "url": "https://github.com/livestyle/atom/issues"
   },
