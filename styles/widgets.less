@@ -60,6 +60,14 @@
     }
 }
 
+atom-text-editor::shadow .livestyle-mixin__call {
+    .region:first-child::before {
+        content: '';
+        display: inline-block;
+        margin-left: -0.5em;
+    }
+}
+
 .livestyle-mixin {
     min-width: 100px;
     max-height: 200px;
