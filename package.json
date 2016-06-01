@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "crc": "^3.4.0",
+    "deep-equal": "^1.0.1",
     "emmet-livestyle": "^0.9.26",
     "glob": "^6.0.3",
     "livestyle-analyzer": "livestyle/analyzer",

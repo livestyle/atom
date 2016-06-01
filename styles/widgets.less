@@ -61,10 +61,26 @@
 }
 
 atom-text-editor::shadow .livestyle-mixin__call {
-    .region:first-child::before {
-        content: '';
-        display: inline-block;
-        margin-left: -0.5em;
+    .region {
+        color: @ui-site-color-5;
+        border-bottom: 2px solid currentColor;
+        &::before, &::after {
+            display: inline-block;
+            content: '';
+            height: 5px;
+            width: 1px;
+            position: absolute;
+            background: currentColor;
+            bottom: -2px;
+        }
+
+        &::before {
+            left: -1px;
+        }
+
+        &::after {
+            right: -1px;
+        }
     }
 }
 
