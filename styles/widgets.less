@@ -91,6 +91,19 @@ atom-text-editor::shadow .livestyle-mixin__call {
     overflow: auto;
     font-size: 0.9em;
 
+    &__call {
+        .icon {
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            margin-left: -0.8em;
+            &::before {
+                font-size: 1em;
+                color: @text-color-info;
+            }
+        }
+    }
+
     &__name {
     	// margin-top: 15px;
     	display: inline-block;
@@ -98,27 +111,6 @@ atom-text-editor::shadow .livestyle-mixin__call {
         padding: 0 10px;
         border-radius: 1em;
         margin-left: -10px;
-    }
-
-    &__property-name:after {
-    	content: ': ';
-    }
-
-    &__property-value:after {
-    	content: ';';
-    }
-
-    &__section-name:after {
-    	content: ' {';
-    }
-
-    &__section-body {
-    	padding-left: 10px;
-
-        &:after {
-            content: '}';
-            margin-left: -10px;
-        }
     }
 }
 
