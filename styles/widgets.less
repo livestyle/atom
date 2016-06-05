@@ -92,13 +92,12 @@ atom-text-editor::shadow .livestyle-mixin__call {
     font-size: 0.9em;
 
     &__name {
-    	margin-top: 15px;
-    	font-weight: bold;
-    	padding-bottom: 2px;
-
-        &:first-child {
-        	margin-top: 0;
-        }
+    	// margin-top: 15px;
+    	display: inline-block;
+        background: @background-color-info;
+        padding: 0 10px;
+        border-radius: 1em;
+        margin-left: -10px;
     }
 
     &__property-name:after {
@@ -121,6 +120,15 @@ atom-text-editor::shadow .livestyle-mixin__call {
             margin-left: -10px;
         }
     }
+}
+
+atom-text-editor[mini].livestyle-mixin__output {
+    font-size: 1em;
+    background-color: fade(@input-background-color, 50%);
+    border: 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    padding: 10px 0;
+    line-height: inherit;
 }
 
 .livestyle-autocomplete-color {
