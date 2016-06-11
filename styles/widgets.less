@@ -60,32 +60,38 @@
     }
 }
 
-atom-text-editor::shadow .livestyle-mixin__hl {
-    .region-decoration() {
-        margin-left: -0.8em;
-        font-size: 1em;
-        width: 1em;
-        color: @text-color-info;
-        font-family: 'Octicons Regular';
-        font-weight: normal;
-        font-style: normal;
-        display: inline-block;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
-        text-decoration: none;
-        content: "\f078";
-        transition: transform 0.3s;
-        transform-origin: 0.15em 50%;
-        will-change: transform;
+atom-text-editor::shadow  {
+    .livestyle-mixin__hl {
+        .region-decoration() {
+            margin-left: -0.8em;
+            font-size: 1em;
+            width: 1em;
+            color: @text-color-info;
+            font-family: 'Octicons Regular';
+            font-weight: normal;
+            font-style: normal;
+            display: inline-block;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            text-decoration: none;
+            content: "\f078";
+            transition: transform 0.3s;
+            transform-origin: 0.15em 50%;
+            will-change: transform;
+        }
+
+        > .region::before {
+            .region-decoration;
+        }
+
+        &_expanded > .region::before {
+            .region-decoration;
+            transform: rotate(90deg);
+        }
     }
 
-    > .region::before {
-        .region-decoration;
-    }
-
-    &_expanded > .region::before {
-        .region-decoration;
-        transform: rotate(90deg);
+    .livestyle-hyperlink_hover .region {
+        border-bottom: 1px solid @background-color-info;
     }
 }
 
@@ -110,6 +116,7 @@ atom-text-editor[mini].livestyle-mixin__output {
 .livestyle-widget-hover::shadow .lines {
     cursor: pointer;
 }
+
 
 @keyframes livestyle-widget-display {
     from {
