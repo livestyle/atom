@@ -1,37 +1,50 @@
 @import "ui-variables";
 
 .livestyle-widget {
-    background: @background-color-info;
+    @bg-color: @ui-site-color-1;
+    @corner-radius: 4px;
+
+    background: @bg-color;
     color: @text-color-highlight;
-    border-radius: @component-border-radius;
-    padding: 0 7px;
-    position: absolute;
-    margin-left: 7px;
-    box-shadow: 1px 1px 7px rgba(0,0,0,0.3);
-    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
-    animation: livestyle-widget-display 0.4s;
+    border-radius: @corner-radius;
+    border-top-left-radius: 0;
+    padding: 0 5px;
+    position: relative;
+    margin-left: -2px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    transform-origin: 0 0;
+    animation: livestyle-widget-display-below 0.3s  cubic-bezier(0.175, 0.885, 0.320, 1.275);
 
     &::before {
-        @size: 6px;
         content: '';
-        width: @size;
-        height: @size;
-        margin: -@size / 2;
+        width: @corner-radius;
+        height: @corner-radius;
         display: inline-block;
-        background: inherit;
         position: absolute;
-        transform: rotate(45deg);
-        top: 0.7em;
+        bottom: 100%;
         left: 0;
-    }
-
-    &_hidden {
-        display: none;
+        background: radial-gradient(circle farthest-side at 100% 0, transparent 0%, fade(@bg-color, 0%) 90%, @bg-color 100%);
     }
 
     &__computed-value {
-        white-space: nowrap;
-        bottom: 0;
+        max-width: 250px;
+    }
+
+    &__selector {
+        @bg-color: @ui-site-color-3;
+        background: @bg-color;
+        bottom: 3em;
+        border-top-left-radius: @corner-radius;
+        border-bottom-left-radius: 0;
+        transform-origin: 0 100%;
+        animation: livestyle-widget-display-above 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+        &::before {
+            background: radial-gradient(circle farthest-side at 100% 100%, transparent 0%, fade(@bg-color, 0%) 90%, @bg-color 100%);
+            bottom: auto;
+            top: 100%;
+        }
     }
 
     &__mixin {
@@ -49,7 +62,7 @@
     	text-align: center;
     	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
     	position: relative;
-        top: 2px;
+        top: 1px;
 
         &[data-type="approximate"]::before {
         	content: '≈';
@@ -118,10 +131,21 @@ atom-text-editor[mini].livestyle-mixin__output {
 }
 
 
-@keyframes livestyle-widget-display {
+@keyframes livestyle-widget-display-below {
     from {
         opacity: 0;
-        transform: translateX(-10px);
+        transform: scale(0) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes livestyle-widget-display-above {
+    from {
+        opacity: 0;
+        transform: scale(0) translateY(10px);
     }
     to {
         opacity: 1;
