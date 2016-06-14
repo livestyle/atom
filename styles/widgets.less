@@ -53,6 +53,16 @@
         }
     }
 
+    &__variable-suggest {
+        @bg-color: @ui-site-color-4;
+        background: @bg-color;
+        position: absolute;
+
+        &::before {
+            background: radial-gradient(circle farthest-side at 100% 0, transparent 0%, fade(@bg-color, 0%) 90%, @bg-color 100%);
+        }
+    }
+
     &__mixin {
         top: -1.2em;
     }
@@ -112,6 +122,17 @@ atom-text-editor::shadow  {
     .livestyle-hyperlink_hover .region {
         border-bottom: 1px solid @background-color-info;
     }
+
+    .livestyle-value-with-suggest .region {
+        border-radius: 5px;
+        border-bottom: 2px solid @ui-site-color-2;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+    }
+
+    .livestyle-hyperlink_hover.livestyle-value-with-suggest .region {
+        opacity: 1;
+    }
 }
 
 atom-text-editor[mini].livestyle-mixin__output {
@@ -136,6 +157,45 @@ atom-text-editor[mini].livestyle-mixin__output {
     cursor: pointer;
 }
 
+.livestyle-variable-suggest {
+    &__title {
+        font-size: 1em;
+        margin: 0;
+        padding: 0.3em 0px;
+        white-space: nowrap;
+    }
+
+    &__item {
+        padding: 3px 5px;
+        margin: 0 -5px;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        &:last-child {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+
+    &__varname {
+        display: inline-block;
+        margin-right: 10px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    &__varvalue {
+        opacity: 0.6;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+        vertical-align: bottom;
+    }
+}
 
 @keyframes livestyle-widget-display-below {
     from {
