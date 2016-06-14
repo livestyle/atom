@@ -15,7 +15,7 @@
     line-height: 1.4;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
     transform-origin: 0 0;
-    animation: livestyle-widget-display-below 0.3s  cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    animation: livestyle-widget-display-below 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
 
     &::before {
         content: '';
@@ -28,14 +28,20 @@
         background: radial-gradient(circle farthest-side at 100% 0, transparent 0%, fade(@bg-color, 0%) 90%, @bg-color 100%);
     }
 
+    &-wrap {
+        position: relative;
+    }
+
     &__computed-value {
         max-width: 250px;
+        position: absolute;
     }
 
     &__selector {
         @bg-color: @ui-site-color-3;
         background: @bg-color;
-        bottom: 3em;
+        position: absolute;
+        bottom: 0;
         border-top-left-radius: @corner-radius;
         border-bottom-left-radius: 0;
         transform-origin: 0 100%;
