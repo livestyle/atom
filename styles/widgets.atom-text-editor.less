@@ -1,0 +1,33 @@
+atom-text-editor::shadow {
+    livestyle-widget {
+        animation: livestyle-widget-display-below 0.3s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+
+        &[position*="top"] {
+            transform-origin: 0 100%;
+            animation-name: livestyle-widget-display-above;
+
+        }
+    }
+}
+
+@keyframes livestyle-widget-display-below {
+    from {
+        opacity: 0;
+        transform: scale(0) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes livestyle-widget-display-above {
+    from {
+        opacity: 0;
+        transform: scale(0) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
