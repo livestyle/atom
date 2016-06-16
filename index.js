@@ -13,9 +13,8 @@ const pkg = require('./package.json');
 const EDITOR_ID = 'atom';
 
 module.exports.activate = function() {
-	setupActions();
 	setupLogger();
-	setupAnalyzer();
+	analyzer();
 
 	connect(pkg.config.websocketUrl, (err, client) => {
 		if (err) {
@@ -216,19 +215,6 @@ function setupLogger() {
 
 	toggle(atom.config.get(key));
 	atom.config.onDidChange(key, evt => toggle(evt.newValue));
-}
-
-function setupAnalyzer() {
-	atom.workspace.observeTextEditors(editor => analyzer(editor.getBuffer()));
-}
-
-function setupActions() {
-	atom.commands.add('atom-text-editor', 'livestyle:expand-widget', function(event) {
-		var editor = this.model;
-		if (analyzer.toggleContextWidget(editor, editor.getCursorBufferPosition())) {
-			event.stopPropagation();
-		}
-	});
 }
 
 ////////////////////////////////////////
