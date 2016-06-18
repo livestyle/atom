@@ -181,3 +181,121 @@ atom-text-editor::shadow {
         }
     }
 }
+
+livestyle-outline {
+	padding: 0 15px;
+    position: relative;
+    display: block;
+
+    &::shadow {
+        input[name=search] {
+            display: block;
+            background-color: transparent;
+            color: #b3b3b3;
+            outline: none;
+            font-size: 1.3em;
+            border: 0;
+            border-bottom: 1px solid #505862;
+            padding: 8px 120px 8px 0;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+        }
+
+        .switch {
+        	display: block;
+        	list-style-type: none;
+        	padding: 0;
+        	margin: 0;
+        	position: absolute;
+        	top: 6px;
+        	right: 15px;
+        	line-height: 1;
+        	text-align: center;
+        	font-family: 'Helvetica Neue', Arial, sans-serif;
+        	font-size: 11px;
+        	color: #fff;
+        	background: #232b39;
+        	border-radius: 15px;
+
+            > li {
+                display: inline-block;
+            	padding: 5px 8px;
+            	cursor: pointer;
+
+                &.selected {
+                    background: #0396df;
+                	border-radius: inherit;
+                }
+
+                &[data-target=source]::before {
+                    content: 'Source';
+                }
+
+                &[data-target=result]::before {
+                    content: 'Result';
+                }
+            }
+        }
+
+        .section-list {
+        	max-height: 300px;
+        	overflow: auto;
+        	margin: 0 -15px;
+        	position: relative;
+
+            section {
+                display: none;
+            	padding: 7px 0;
+            	overflow: hidden;
+
+                &.selected {
+                    display: block;
+                }
+            }
+        }
+
+        .node-label {
+        	display: block;
+        	position: relative;
+        	padding-left: 15px;
+        	line-height: 1.5;
+        	cursor: pointer;
+        }
+
+        .node.selected > .node-label::before,
+        .node-label:hover::before {
+        	display: inline-block;
+        	content: '';
+        	position: absolute;
+        	top: 0;
+        	bottom: 0;
+        	left: -50%;
+        	width: 200%;
+        	background: rgba(255, 255, 255, 0.2);
+        }
+
+        .node:not([data-type="property"]) > .node-label {
+        	font-weight: bold;
+        	color: #fff;
+        	text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .node-body {
+        	padding-left: 20px;
+        }
+
+        section.filtered .node:not(.filtered) {
+        	display: none;
+        }
+
+        .tip {
+        	background: #313842;
+        	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+        	margin: 0;
+        	padding: 4px 15px;
+        	font-family: 'Helvetica Neue', Arial, sans-serif;
+        	font-size: 11px;
+        	color: #5e646b;
+        }
+    }
+}
