@@ -1,20 +1,23 @@
 'use strict';
 
+const Disposable = require('atom').Disposable;
+const CompositeDisposable = require('atom').CompositeDisposable;
 const connect = require('./lib/client');
 const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
 const readFile = require('./lib/read-file');
 const globalDebug = require('./lib/debug');
-const analyzer = require('./lib/analyzer');
+const createAnalyzer = require('./lib/analyzer');
 const autocompleteProvider = require('./lib/analyzer/autocomplete');
 const debug = globalDebug('LiveStyle');
 const pkg = require('./package.json');
 
 const EDITOR_ID = 'atom';
+var analyzer = null;
 
 module.exports.activate = function() {
 	setupLogger();
-	analyzer();
+	setupAnalyzer();
 
 	connect(pkg.config.websocketUrl, (err, client) => {
 		if (err) {
@@ -139,13 +142,18 @@ module.exports.config = {
 		description: 'Makes excessive logging into DevTools console, helps in finding bugs in plugin',
 		type: 'boolean',
 		default: true
-	}
+	},
+	analyzer: require('./lib/analyzer/config')
 };
 
 module.exports.deactivate = function() {
 	// TODO close server
 	debug('deactivate');
 	globalDebug.disable();
+	if (analyzer) {
+		analyzer.dispose();
+		analyzer = null;
+	}
 };
 
 module.exports.getProvider = () => autocompleteProvider;
@@ -215,6 +223,29 @@ function setupLogger() {
 
 	toggle(atom.config.get(key));
 	atom.config.onDidChange(key, evt => toggle(evt.newValue));
+}
+
+function setupAnalyzer() {
+	if (!analyzer) {
+		let analyzerInstance = null;
+		analyzer = new CompositeDisposable();
+		analyzer.add(
+			atom.config.observe(`${pkg.name}.analyzer.enabled`, enabled => {
+				if (enabled && !analyzerInstance) {
+					analyzerInstance = createAnalyzer();
+				} else if (!enabled && analyzerInstance) {
+					analyzerInstance.dispose();
+					analyzerInstance = null;
+				}
+			}),
+			new Disposable(() => {
+				if (analyzerInstance) {
+					analyzerInstance.dispose();
+					analyzerInstance = null;
+				}
+			})
+		);
+	}
 }
 
 ////////////////////////////////////////

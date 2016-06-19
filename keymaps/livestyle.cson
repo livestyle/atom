@@ -1,5 +1,6 @@
 'atom-text-editor.has-livestyle-widget':
-    'escape': 'livestyle:hide-widgets'
+    'escape': 'livestyle:hide-widget'
+    'ctrl-k': 'livestyle:show-widget'
     'ctrl-o': 'livestyle:show-outline'
 
 'livestyle-outline':
