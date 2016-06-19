@@ -182,21 +182,27 @@ atom-text-editor::shadow {
     }
 }
 
+atom-panel.modal.livestyle-outline-panel {
+    max-width: 40em;
+    padding: 0;
+}
+
 livestyle-outline {
-	padding: 0 15px;
+	padding: 5px 15px;
     position: relative;
     display: block;
 
     &::shadow {
         input[name=search] {
             display: block;
-            background-color: transparent;
-            color: #b3b3b3;
+            width: 100%;
+            background-color: @input-background-color;
+            color: @text-color;
             outline: none;
             font-size: 1.3em;
-            border: 0;
-            border-bottom: 1px solid #505862;
-            padding: 8px 120px 8px 0;
+            border: 1px solid @input-background-color;
+            padding: 8px;
+            margin-top: 5px;
             box-sizing: border-box;
             -webkit-appearance: none;
         }
@@ -205,17 +211,14 @@ livestyle-outline {
         	display: block;
         	list-style-type: none;
         	padding: 0;
-        	margin: 0;
+        	margin: 0.3em 0 0;
         	position: absolute;
-        	top: 6px;
-        	right: 15px;
-        	line-height: 1;
+        	top: 13px;
+        	right: 23px;
+        	line-height: 1.1;
         	text-align: center;
-        	font-family: 'Helvetica Neue', Arial, sans-serif;
-        	font-size: 11px;
-        	color: #fff;
-        	background: #232b39;
-        	border-radius: 15px;
+        	background: @button-background-color;
+        	border-radius: @component-border-radius;
 
             > li {
                 display: inline-block;
@@ -223,7 +226,8 @@ livestyle-outline {
             	cursor: pointer;
 
                 &.selected {
-                    background: #0396df;
+                    color: @text-color-selected;
+                    background: @button-background-color-selected;
                 	border-radius: inherit;
                 }
 
@@ -238,7 +242,7 @@ livestyle-outline {
         }
 
         .section-list {
-        	max-height: 300px;
+        	max-height: 310px;
         	overflow: auto;
         	margin: 0 -15px;
         	position: relative;
@@ -258,8 +262,16 @@ livestyle-outline {
         	display: block;
         	position: relative;
         	padding-left: 15px;
-        	line-height: 1.5;
         	cursor: pointer;
+            line-height: 2;
+            color: @text-color-subtle;
+            &-text {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                position: relative;
+                z-index: 1;
+            }
         }
 
         .node.selected > .node-label::before,
@@ -271,13 +283,12 @@ livestyle-outline {
         	bottom: 0;
         	left: -50%;
         	width: 200%;
-        	background: rgba(255, 255, 255, 0.2);
+        	background: @background-color-highlight;
         }
 
         .node:not([data-type="property"]) > .node-label {
         	font-weight: bold;
-        	color: #fff;
-        	text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        	color: @text-color;
         }
 
         .node-body {
@@ -288,14 +299,15 @@ livestyle-outline {
         	display: none;
         }
 
+        .highlight {
+            color: @text-color-selected;
+        }
+
         .tip {
-        	background: #313842;
-        	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+            color: @text-color-info;
         	margin: 0;
-        	padding: 4px 15px;
-        	font-family: 'Helvetica Neue', Arial, sans-serif;
-        	font-size: 11px;
-        	color: #5e646b;
+            padding: 20px 0 0;
+        	font-size: 0.9em;
         }
     }
 }
