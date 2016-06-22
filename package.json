@@ -4,7 +4,7 @@
   "description": "Atom plugin for Emmet LiveStyle",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "mocha"
   },
   "keywords": [
     "livestyle",
@@ -22,8 +22,7 @@
     "emmet-livestyle": "^0.9.27",
     "glob": "^6.0.3",
     "livestyle-analyzer": "livestyle/analyzer",
-    "ws": "^1.0.0",
-    "xtend": "^4.0.1"
+    "ws": "^1.0.0"
   },
   "config": {
     "websocketUrl": "ws://127.0.0.1:54000/livestyle"
