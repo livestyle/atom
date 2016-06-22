@@ -2,6 +2,7 @@
 
 const Disposable = require('atom').Disposable;
 const CompositeDisposable = require('atom').CompositeDisposable;
+const AppState = require('./lib/app-state');
 const connect = require('./lib/client');
 const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
@@ -9,13 +10,19 @@ const readFile = require('./lib/read-file');
 const globalDebug = require('./lib/debug');
 const createAnalyzer = require('./lib/analyzer');
 const autocompleteProvider = require('./lib/analyzer/autocomplete');
-const debug = globalDebug('LiveStyle');
 const pkg = require('./package.json');
+const debug = globalDebug('LiveStyle');
 
 const EDITOR_ID = 'atom';
 var analyzer = null;
 
-module.exports.activate = function() {
+atom.deserializers.add(AppState);
+
+module.exports.activate = function(state) {
+	this.appState = (state && state.deserializer === AppState.name)
+		? atom.deserializers.deserialize(state)
+		: new AppState();
+
 	setupLogger();
 	setupAnalyzer();
 
@@ -144,6 +151,10 @@ module.exports.config = {
 		default: true
 	},
 	analyzer: require('./lib/analyzer/config')
+};
+
+module.exports.serialize = function() {
+	return this.appState.serialize();
 };
 
 module.exports.deactivate = function() {
