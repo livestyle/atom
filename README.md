@@ -49,25 +49,37 @@ By default, *computed value* and *resolved selector* hints are displayed automat
 
 Displays computed result of property value expressions, if possible. Also displays color previews even for static values. Hint is displayed automatically when you move caret inside property value. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
 
+![Computed Value example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/computed-value.gif)
+
 ## Resolved selector
 
 Displays resolved CSS selector for nested sections. Hint is displayed automatically when you move caret inside selector. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
+
+![Resolved selector example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/selector.gif)
 
 ## Variables and mixin completions
 
 Provides variables (with computed values, if possible) and mixin completions for standard Atom’s autocomplete. LiveStyle tries to be smart here: it displays variables (and their values) available exactly for current scope, not all variables from current file.
 
+![Completions](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/completions.gif)
+
 ## Mixin output
 
 A little triangle near mixin call means LiveStyle was able to find matched mixin definitions. Hold down Cmd (Mac) or Ctrl key and click on mixin call to display computed output. Output is updated in real-time when you edit mixin call arguments.
+
+![Mixin output example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/mixin%20call.gif)
 
 ## Suggested variables
 
 For static values (e.g. values without expressions) LiveStyle tries to find variables with the same or similar (for colors) values. If such variables found, displays rounded underline under property value. Hold down Cmd (Mac) or Ctrl key and click on property value to display suggested variables. You may then click on variable to replace value with it or hit Esc key to close popup.
 
+![Suggested variables example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/suggested.gif)
+
 ## Quick outline
 
 Run `livestyle:show-outline` command to display current stylesheet tree and its resolved CSS. Useful for finding source of generated CSS selectors: open quick outline, switch to Result tree (can be done with Tab key as well), find required CSS node and click on it to go to LESS/SCSS source.
+
+![Suggested variables example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/outline.gif)
 
 ### How it works
 
