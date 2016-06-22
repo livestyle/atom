@@ -35,4 +35,46 @@ Currently, Atom doesn‘t provide any means to create project-level configs. In 
 
 * All paths must be relative to `livestyle.json`’s folder.
 * You can set either direct file paths or use glob patterns, but remember that sometimes order of dependencies matters.
-* Too much global dependencies will slow down LiveStyle, workflow with many dependencies wasn’t optimized yet. So keep only those dependencies you acttually use.
+* Too much global dependencies will slow down LiveStyle, workflow with many dependencies wasn’t optimized yet. So keep only those dependencies you actually use.
+
+# LiveStyle Analyzer
+
+LiveStyle Analyzer is an experimental UI that displays various code hints right in LESS and SCSS editors so you can have better overview of how compiled CSS will look like.
+
+By default, *computed value* and *resolved selector* hints are displayed automatically when you move caret inside value or selector respectively. This can be disabled in package preferences. All the other hints (including *computed value* and *resolved selector*) can be toggled with `livestyle:show-widget` command.
+
+> LiveStyle Analyzer works for currently opened file only: it doesn’t read data from `@import` or global stylesheets yet. But you can make it happened! Stay tuned for updates at [@emmetio](https://twitter.com/emmetio)
+
+## Computed value
+
+Displays computed result of property value expressions, if possible. Also displays color previews even for static values. Hint is displayed automatically when you move caret inside property value. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
+
+## Resolved selector
+
+Displays resolved CSS selector for nested sections. Hint is displayed automatically when you move caret inside selector. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
+
+## Variables and mixin completions
+
+Provides variables (with computed values, if possible) and mixin completions for standard Atom’s autocomplete. LiveStyle tries to be smart here: it displays variables (and their values) available exactly for current scope, not all variables from current file.
+
+## Mixin output
+
+A little triangle near mixin call means LiveStyle was able to find matched mixin definitions. Hold down Cmd (Mac) or Ctrl key and click on mixin call to display computed output. Output is updated in real-time when you edit mixin call arguments.
+
+## Suggested variables
+
+For static values (e.g. values without expressions) LiveStyle tries to find variables with the same or similar (for colors) values. If such variables found, displays rounded underline under property value. Hold down Cmd (Mac) or Ctrl key and click on property value to display suggested variables. You may then click on variable to replace value with it or hit Esc key to close popup.
+
+## Quick outline
+
+Run `livestyle:show-outline` command to display current stylesheet tree and its resolved CSS. Useful for finding source of generated CSS selectors: open quick outline, switch to Result tree (can be done with Tab key as well), find required CSS node and click on it to go to LESS/SCSS source.
+
+### How it works
+
+LiveStyle uses its own implementations of LESS and SCSS preprocessors, written in pure JavaScript. Unlike official preprocessors implementations with sourcemaps, LiveStyle proper source-to-result mappings, variable and mixin scopes, error recovery and partial compilation.
+
+LiveStyle produces two trees for given LESS/SCSS source code: one with source and another CSS result. All CSS result nodes hold variable and mixin scopes and references to source tree nodes that produced it. These trees then passed to Analyzer module which extracts required data from them and adds as [markers](https://atom.io/docs/api/v1.8.0/TextEditorMarker) into text editor (these markers contains `livestyle` property).
+
+### Ideas?
+
+With LiveStyle engine, it’s possible to use static analysis of preprocessor stylesheets, do code refactoring and much, much more. If you have any suggestions how LESS and SCSS coding experiences can be improved, feel free to [create a new issue](https://github.com/livestyle/atom/issues) with your suggestions.

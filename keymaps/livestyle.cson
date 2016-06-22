@@ -1,7 +1,7 @@
 'atom-text-editor.has-livestyle-widget':
     'escape': 'livestyle:hide-widget'
-    'ctrl-k': 'livestyle:show-widget'
-    'ctrl-o': 'livestyle:show-outline'
+    # 'ctrl-alt-k': 'livestyle:show-widget'
+    # 'ctrl-alt-o': 'livestyle:show-outline'
 
 'livestyle-outline':
     'backspace': 'native!'
