@@ -21,7 +21,7 @@
     "deep-equal": "^1.0.1",
     "emmet-livestyle": "^0.9.27",
     "glob": "^6.0.3",
-    "livestyle-analyzer": "livestyle/analyzer",
+    "livestyle-analyzer": "^1.0.0",
     "ws": "^1.0.0"
   },
   "config": {
