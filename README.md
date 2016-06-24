@@ -67,13 +67,13 @@ Provides variables (with computed values, if possible) and mixin completions for
 
 ## Mixin output
 
-A little triangle near mixin call means LiveStyle was able to find matched mixin definitions. Hold down Cmd (Mac) or Ctrl key and click on mixin call to display computed output. Output is updated in real-time when you edit mixin call arguments.
+A little triangle near mixin call means LiveStyle was able to find matched mixin definitions. Hold down Cmd (Mac) or Ctrl key and click on mixin call (or call `livestyle:show-widget` action) to display computed output. Output is updated in real-time when you edit mixin call arguments.
 
 ![Mixin output example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/mixin%20call.gif)
 
 ## Suggested variables
 
-For static values (e.g. values without expressions) LiveStyle tries to find variables with the same or similar (for colors) values. If such variables found, displays rounded underline under property value. Hold down Cmd (Mac) or Ctrl key and click on property value to display suggested variables. You may then click on variable to replace value with it or hit Esc key to close popup.
+For static values (e.g. values without expressions) LiveStyle tries to find variables with the same or similar (for colors) values. If such variables found, displays rounded underline under property value. Hold down Cmd (Mac) or Ctrl key and click on property value (or call `livestyle:show-widget` action) to display suggested variables. You may then click on variable to replace value with it or hit Esc key to close popup.
 
 ![Suggested variables example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/suggested.gif)
 
