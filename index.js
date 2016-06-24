@@ -2,7 +2,6 @@
 
 const Disposable = require('atom').Disposable;
 const CompositeDisposable = require('atom').CompositeDisposable;
-const AppState = require('./lib/app-state');
 const connect = require('./lib/client');
 const ed = require('./lib/editor');
 const diffFactory = require('./lib/diff');
@@ -16,13 +15,7 @@ const debug = globalDebug('LiveStyle');
 const EDITOR_ID = 'atom';
 var analyzer = null;
 
-atom.deserializers.add(AppState);
-
 module.exports.activate = function(state) {
-	this.appState = (state && state.deserializer === AppState.name)
-		? atom.deserializers.deserialize(state)
-		: new AppState();
-
 	setupLogger();
 	setupAnalyzer();
 
@@ -153,10 +146,6 @@ module.exports.config = {
 	analyzer: require('./lib/analyzer/config')
 };
 
-module.exports.serialize = function() {
-	return this.appState.serialize();
-};
-
 module.exports.deactivate = function() {
 	// TODO close server
 	debug('deactivate');
@@ -256,6 +245,22 @@ function setupAnalyzer() {
 				}
 			})
 		);
+
+		displayLiveStyleNotification();
+	}
+}
+
+/**
+ * Display notification about available LiveStyle Analyzer
+ * @return {[type]} [description]
+ */
+function displayLiveStyleNotification() {
+	let key = `${pkg.name}.analyzer.notify`;
+	if (atom.config.get(key)) {
+		atom.notifications.addInfo(`**LiveStyle can help you with LESS and SCSS!**<br>A new [LiveStyle Analyzer experimental UI](https://github.com/livestyle/atom#livestyle-analyzer) displays instant code hints for LESS and SCSS stylesheets.`, {
+			dismissable: true
+		});
+		atom.config.set(key, false);
 	}
 }
 
