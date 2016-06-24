@@ -43,6 +43,8 @@ LiveStyle Analyzer is an experimental UI that displays various code hints right 
 
 By default, *computed value* and *resolved selector* hints are displayed automatically when you move caret inside value or selector respectively. This can be disabled in package preferences. All the other hints (including *computed value* and *resolved selector*) can be toggled with `livestyle:show-widget` command.
 
+**Tip:** bind `livestyle:show-widget` action to a [keyboard shortcut](http://flight-manual.atom.io/using-atom/sections/basic-customization/#_customizing_keybindings) of your choice to quickly toggle code hints.
+
 > LiveStyle Analyzer works for currently opened file only: it doesn’t read data from `@import` or global stylesheets yet. But you can make it happened! Stay tuned for updates at [@emmetio](https://twitter.com/emmetio)
 
 ## Computed value
