@@ -45,7 +45,7 @@ By default, *computed value* and *resolved selector* hints are displayed automat
 
 **Tip:** bind `livestyle:show-widget` action to a [keyboard shortcut](http://flight-manual.atom.io/using-atom/sections/basic-customization/#_customizing_keybindings) of your choice to quickly toggle code hints.
 
-> LiveStyle Analyzer works for currently opened file only: it doesn’t read data from `@import` or global stylesheets yet. But you can make it happened! Stay tuned for updates at [@emmetio](https://twitter.com/emmetio)
+> LiveStyle Analyzer works for currently opened file only: it doesn’t read data from `@import` or global stylesheets yet. But you can help to make it happen! Stay tuned for updates at [@emmetio](https://twitter.com/emmetio)
 
 ## Computed value
 
