@@ -49,13 +49,13 @@ By default, *computed value* and *resolved selector* hints are displayed automat
 
 ## Computed value
 
-Displays computed result of property value expressions, if possible. Also displays color previews even for static values. Hint is displayed automatically when you move caret inside property value. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
+Displays computed result of property value expressions, if possible. Also displays color previews even for static values. Hint is displayed automatically when you move caret inside property value, but you can disable it in package preferences and display manually with `livestyle:show-widget` command.
 
 ![Computed Value example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/computed-value.gif)
 
 ## Resolved selector
 
-Displays resolved CSS selector for nested sections. Hint is displayed automatically when you move caret inside selector. You can disabled it in package preferences and display manually with `livestyle:show-widget` command.
+Displays resolved CSS selector for nested sections. Hint is displayed automatically when you move caret inside selector, but you can disable it in package preferences and display manually with `livestyle:show-widget` command.
 
 ![Resolved selector example](https://raw.githubusercontent.com/livestyle/atom/gh-pages/images/selector.gif)
 
