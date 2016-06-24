@@ -85,9 +85,9 @@ Run `livestyle:show-outline` command to display current stylesheet tree and its 
 
 ### How it works
 
-LiveStyle uses its own implementations of LESS and SCSS preprocessors, written in pure JavaScript. Unlike official preprocessors implementations with sourcemaps, LiveStyle proper source-to-result mappings, variable and mixin scopes, error recovery and partial compilation.
+LiveStyle uses its own implementations of LESS and SCSS preprocessors, written in pure JavaScript. Unlike official preprocessors implementations with sourcemaps, LiveStyle provides proper source-to-result mappings, variable and mixin scopes, error recovery and partial compilation.
 
-LiveStyle produces two trees for given LESS/SCSS source code: one with source and another CSS result. All CSS result nodes hold variable and mixin scopes and references to source tree nodes that produced it. These trees then passed to Analyzer module which extracts required data from them and adds as [markers](https://atom.io/docs/api/v1.8.0/TextEditorMarker) into text editor (these markers contains `livestyle` property).
+LiveStyle produces two trees for given LESS/SCSS source code: one with source and another with CSS result. All CSS result nodes holds variables and mixins scope and references to source tree node that produced it. These trees then passed to Analyzer module which extracts required data from them and adds as [markers](https://atom.io/docs/api/v1.8.0/TextEditorMarker) into text editor (these markers contains `livestyle` property). Authors can create custom plugins that read these marker’s data and provide custom UI, hints and so on.
 
 ### Ideas?
 
