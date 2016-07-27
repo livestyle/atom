@@ -19,9 +19,9 @@
   "dependencies": {
     "crc": "^3.4.0",
     "deep-equal": "^1.0.1",
-    "emmet-livestyle": "^0.9.27",
+    "emmet-livestyle": "^0.9.30",
     "glob": "^6.0.3",
-    "livestyle-analyzer": "^1.0.0",
+    "livestyle-analyzer": "^1.0.1",
     "ws": "^1.0.0"
   },
   "config": {
