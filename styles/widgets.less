@@ -23,6 +23,10 @@ atom-text-editor[mini].livestyle-mixin__output {
 }
 
 atom-text-editor::shadow {
+    .gutter-shadow {
+        pointer-events: none;
+    }
+
     livestyle-widget {
         @bg-color: @ui-site-color-1;
         @corner-radius: 4px;
