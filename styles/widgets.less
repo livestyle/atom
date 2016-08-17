@@ -80,6 +80,15 @@ atom-text-editor::shadow {
         &[name="variable-suggest"] {
             .widget-color(@ui-site-color-4);
         }
+
+        // exceptions for different UI themes
+        .theme-atom-material-ui &:not([name=variable-suggest]) {
+            color: #000;
+        }
+
+        .theme-atom-material-ui &[name=variable-suggest] {
+            color: #fff;
+        }
     }
 
     livestyle-color-preview {
