@@ -141,7 +141,7 @@ module.exports.config = {
 		title: 'Debug Mode',
 		description: 'Makes excessive logging into DevTools console, helps in finding bugs in plugin',
 		type: 'boolean',
-		default: true
+		default: false
 	},
 	analyzer: require('./lib/analyzer/config')
 };
@@ -245,22 +245,6 @@ function setupAnalyzer() {
 				}
 			})
 		);
-
-		displayLiveStyleNotification();
-	}
-}
-
-/**
- * Display notification about available LiveStyle Analyzer
- * @return {[type]} [description]
- */
-function displayLiveStyleNotification() {
-	let key = `${pkg.name}.analyzer.notify`;
-	if (atom.config.get(key)) {
-		atom.notifications.addInfo(`**LiveStyle can help you with LESS and SCSS!**<br>A new [LiveStyle Analyzer experimental UI](https://github.com/livestyle/atom#livestyle-analyzer) displays instant code hints for LESS and SCSS stylesheets.`, {
-			dismissable: true
-		});
-		atom.config.set(key, false);
 	}
 }
 
